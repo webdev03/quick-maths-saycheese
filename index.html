@@ -96,6 +96,15 @@
             let points = 0;
             document
                 .getElementById("answer")
+                .addEventListener("keypress", (e) => {
+                    const c = document.getElementById("answer").value;
+                    if (Number(c).toString() !== c) {
+                        e.returnValue = 0;
+                        e.preventDefault();
+                    }
+                });
+            document
+                .getElementById("answer")
                 .addEventListener("keydown", (e) => {
                     if (e.key == "Enter") {
                         const cq = questions[currentQuestion];
