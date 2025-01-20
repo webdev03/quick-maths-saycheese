@@ -80,7 +80,7 @@
                     ans: eval(`${a}${operator}${b}`).toFixed(1),
                 };
             }
-            const questions = Array(60).fill(0).map(createQuestion);
+            const questions = Array(30).fill(0).map(createQuestion);
             console.log(questions);
             let currentQuestion = 0;
             function setQuestion() {
@@ -90,7 +90,7 @@
                     " = ";
                 document.getElementById("answer").value = "";
                 document.getElementById("prog").innerText =
-                    currentQuestion + 1 + " / 60";
+                    currentQuestion + 1 + " / 30";
             }
             setQuestion();
             let points = 0;
@@ -105,7 +105,7 @@
                         )
                             points++;
                         currentQuestion++;
-                        if (currentQuestion >= 60) {
+                        if (currentQuestion >= 30) {
                             alert(
                                 "You finished the questions in " +
                                     calcTime() +
