@@ -1,8 +1,8 @@
 import { toFile } from "qrcode";
-import { minify } from "html-minifier";
+import { minify } from "html-minifier-terser";
 import { readFileSync } from "node:fs";
 
-const originalHTML = minify(readFileSync("index.html").toString(), {
+const originalHTML = await minify(readFileSync("index.html").toString(), {
   minifyJS: true,
   minifyCSS: true,
   html5: true,

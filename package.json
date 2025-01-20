@@ -4,14 +4,14 @@
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/html-minifier": "4.0.5",
+    "@types/html-minifier-terser": "^7.0.2",
     "@types/qrcode": "1.5.5"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "html-minifier": "4.0.0",
+    "html-minifier-terser": "^7.2.0",
     "qrcode": "1.5.4"
   }
 }
