@@ -10,6 +10,13 @@
                 justify-content: center;
                 align-items: center;
             }
+            input {
+                width: 15rem;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-radius: 5px;
+                border: 0.5px solid;
+            }
             .q {
                 position: absolute;
                 top: 50%;
@@ -39,11 +46,11 @@
         <div id="qm" class="q">
             <div id="inp">
                 <span id="question"></span>
-                <input type="text" id="answer" style="width: 15rem" />
+                <input type="text" id="answer" />
             </div>
             <div class="h">
                 <span id="prog"></span>
-                <span id="time"></span>
+                <span id="time">0:00</span>
             </div>
         </div>
         <script>
@@ -54,7 +61,7 @@
                 const s = String(z - m * 60).padStart(2, "0");
                 return m.toString() + ":" + s;
             }
-            setInterval(function () {
+            setInterval(() => {
                 document.getElementById("time").innerText = calcTime();
             }, 100);
             function createQuestion() {
