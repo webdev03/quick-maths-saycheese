@@ -97,8 +97,7 @@
             document
                 .getElementById("answer")
                 .addEventListener("keypress", (e) => {
-                    const c = document.getElementById("answer").value;
-                    if (Number(c).toString() !== c) {
+                    if (Number(e.key).toString() !== e.key) {
                         e.returnValue = 0;
                         e.preventDefault();
                     }
