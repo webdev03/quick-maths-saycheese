@@ -1,0 +1,17 @@
+{
+  "name": "quick-maths-saycheese",
+  "module": "build.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/html-minifier": "4.0.5",
+    "@types/qrcode": "1.5.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "html-minifier": "4.0.0",
+    "qrcode": "1.5.4"
+  }
+}

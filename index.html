@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Quick Maths</title>
+        <style>
+            body {
+                font-family: monospace;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .q {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .q * {
+                margin-top: 10px;
+                font-size: 4rem;
+            }
+            .h {
+                margin-top: 20px;
+                /* This is separated because the minifier doesn't like the shorthand */
+                border-top-width: 2px;
+                border-top-style: solid;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .h * {
+                font-size: 2.2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Quick Maths (Say Cheese!)</h1>
+        <div id="qm" class="q">
+            <div id="inp">
+                <span id="question"></span>
+                <input type="text" id="answer" style="width: 15rem" />
+            </div>
+            <div class="h">
+                <span id="prog"></span>
+                <span id="time"></span>
+            </div>
+        </div>
+        <script>
+            const startT = Date.now();
+            function calcTime() {
+                const z = Math.floor((Date.now() - startT) / 1000);
+                const m = Math.floor(z / 60);
+                const s = String(z - m * 60).padStart(2, "0");
+                return m.toString() + ":" + s;
+            }
+            setInterval(function () {
+                document.getElementById("time").innerText = calcTime();
+            }, 100);
+            function createQuestion() {
+                const opRand = Math.random();
+                let operator;
+                let a = Math.floor(Math.random() * 15) + 2;
+                let b = Math.floor(Math.random() * 11) + 2;
+                if (opRand < 0.2) {
+                    operator = "/";
+                    a *= b;
+                } else if (opRand < 0.4) {
+                    operator = "*";
+                } else if (opRand < 0.6) {
+                    a += b + 4;
+                    operator = "-";
+                } else {
+                    operator = "+";
+                    if (Math.random() > 0.3) a *= 3;
+                }
+                return {
+                    qu: `${a} ${operator} ${b}`,
+                    // I know that using eval is a bad idea, but it's for code golfing
+                    ans: eval(`${a}${operator}${b}`).toFixed(1),
+                };
+            }
+            const questions = Array(60).fill(0).map(createQuestion);
+            console.log(questions);
+            let currentQuestion = 0;
+            function setQuestion() {
+                const cq = questions[currentQuestion];
+                document.getElementById("question").innerHTML =
+                    cq.qu.replace("/", "&divide;").replace("*", "&times;") +
+                    " = ";
+                document.getElementById("answer").value = "";
+                document.getElementById("prog").innerText =
+                    currentQuestion + 1 + " / 60";
+            }
+            setQuestion();
+            let points = 0;
+            document
+                .getElementById("answer")
+                .addEventListener("keydown", (e) => {
+                    if (e.key == "Enter") {
+                        const cq = questions[currentQuestion];
+                        if (
+                            cq.ans ==
+                            Number(document.getElementById("answer").value)
+                        )
+                            points++;
+                        currentQuestion++;
+                        if (currentQuestion >= 60) {
+                            alert(
+                                "You finished the questions in " +
+                                    calcTime() +
+                                    "and got " +
+                                    points +
+                                    " points!",
+                            );
+                            location.reload();
+                        } else setQuestion();
+                    }
+                });
+        </script>
+    </body>
+</html>
