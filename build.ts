@@ -14,6 +14,8 @@ const originalHTML = await minify(readFileSync("index.html").toString(), {
   collapseWhitespace: true,
 });
 
+console.log(originalHTML + "\n")
+
 // Compression algorithm
 // Originally made by AI because I didn't understand ReadableStreams and Uint8Arrays,
 // but I did rewrite a lot of it to minify and fix it
