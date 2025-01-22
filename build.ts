@@ -3,7 +3,11 @@ import { minify } from "html-minifier-terser";
 import { readFileSync } from "node:fs";
 
 const originalHTML = await minify(readFileSync("index.html").toString(), {
-  minifyJS: true,
+  minifyJS: {compress: {
+    drop_console: true,
+  },
+  mangle: true,
+  },
   minifyCSS: true,
   html5: true,
   removeComments: true,
@@ -47,8 +51,9 @@ const compressedHTML = await compress(originalHTML);
 const properHTML =
   compressedHTML.length < originalHTML.length ? compressedHTML : originalHTML;
 
-console.log(properHTML);
+console.log(properHTML, properHTML.length);
 
 toFile("qr.png", `data:text/html,${properHTML}`, {
   type: "png",
+  errorCorrectionLevel: "L"
 });
