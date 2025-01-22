@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 
 const originalHTML = await minify(readFileSync("index.html").toString(), {
   minifyJS: {compress: {
-    drop_console: true,
+    drop_console: false,
   },
   mangle: true,
   },
