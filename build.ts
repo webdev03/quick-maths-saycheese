@@ -49,4 +49,5 @@ console.log(properHTML);
 
 toFile("qr.png", `data:text/html,${properHTML}`, {
   type: "png",
+  errorCorrectionLevel: "L",
 });
