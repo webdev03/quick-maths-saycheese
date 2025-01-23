@@ -32,7 +32,7 @@ async function compress(str: string) {
     {
       minifyJS: {
         mangle: true,
-        toplevel: true,
+        toplevel: true, // This is safe here, but not in the actual minification of the program
       },
       removeComments: true,
       collapseWhitespace: true,
