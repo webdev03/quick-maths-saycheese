@@ -14,9 +14,7 @@ const originalHTML = await minify(readFileSync("index.html").toString(), {
 // Originally made by AI because I didn't understand ReadableStreams and Uint8Arrays,
 // but I did rewrite a lot of it to minify and fix it
 async function compress(str: string) {
-  const compressedData = btoa(
-    String.fromCharCode(...new Uint8Array(Bun.deflateSync(str))),
-  );
+  const compressedData = Buffer.from(Bun.deflateSync(str)).toString("base64");
   return await minify(
     `<script>
       let compressedString = atob('${compressedData}');
