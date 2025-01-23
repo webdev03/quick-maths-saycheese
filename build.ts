@@ -19,23 +19,21 @@ async function compress(str: string) {
   );
   return await minify(
     `<script>
-      let bs = atob('${compressedData}');
-      let q = new Uint8Array(bs.length);
-      for (let i = 0; i < bs.length; i++) q[i] = bs.charCodeAt(i);
-      (async () => {
-        document.write(
-          await (new Response(new ReadableStream({
-            start(c) {
-              c.enqueue(q);
-              c.close();
-            }
-          }).pipeThrough(new DecompressionStream('deflate-raw'))
-          ).text())
-        )
-      })();
+      let compressedString = atob('${compressedData}');
+      let arr = new Uint8Array(compressedString.length);
+      for (let i = 0; i < compressedString.length; i++) arr[i] = compressedString.charCodeAt(i);
+      new Response(new ReadableStream({
+        start(controller) {
+          controller.enqueue(arr);
+          controller.close();
+        }
+      }).pipeThrough(new DecompressionStream('deflate-raw'))).text().then((a) => document.write(a))
     </script>`,
     {
-      minifyJS: true,
+      minifyJS: {
+        mangle: true,
+        toplevel: true,
+      },
       removeComments: true,
       collapseWhitespace: true,
     },
