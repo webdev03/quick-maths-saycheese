@@ -29,9 +29,7 @@
             }
             .h {
                 margin-top: 20px;
-                /* This is separated because the minifier doesn't like the shorthand */
-                border-top-width: 2px;
-                border-top-style: solid;
+                border-top: 2px solid;
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
@@ -53,6 +51,12 @@
                 <span id="time">0:00</span>
             </div>
         </div>
+        <dialog>
+            <span></span>
+            <br />
+            <br />
+            <button onclick="location.reload()">Play again</button>
+        </dialog>
         <script>
             const startT = Date.now();
             function calcTime() {
@@ -62,7 +66,8 @@
                 return m.toString() + ":" + s;
             }
             setInterval(() => {
-                document.getElementById("time").innerText = calcTime();
+                if (!document.querySelector("dialog").open)
+                    document.getElementById("time").innerText = calcTime();
             }, 100);
             function createQuestion() {
                 const opRand = Math.random();
@@ -120,14 +125,21 @@
                             points++;
                         currentQuestion++;
                         if (currentQuestion >= 30) {
-                            alert(
+                            document.querySelector("dialog span").innerText =
                                 "You finished the questions in " +
-                                    calcTime() +
-                                    " and got " +
-                                    points +
-                                    " points!",
+                                calcTime() +
+                                " and got " +
+                                points +
+                                " points!";
+
+                            // Without the timeout, the dialog button is automatically clicked
+                            setTimeout(
+                                () =>
+                                    document
+                                        .querySelector("dialog")
+                                        .showModal(),
+                                1,
                             );
-                            location.reload();
                         } else setQuestion();
                     }
                 });
